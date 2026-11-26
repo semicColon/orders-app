@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-api
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-api
+  template:
+    metadata:
+      labels:
+        app: orders-api
+    spec:
+      containers:
+        - name: orders-api
+        image: nginx:1.25
+        env:
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: orders-config
+              key: ENV
+        ports:
+        - containerPort: 80

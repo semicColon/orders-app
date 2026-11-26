@@ -1,0 +1,14 @@
+resources:
+- ../../base
+namespace: prod
+replicas:
+- name: orders-api
+  count: 4
+images:
+- name: nginx
+  newTag: "1.27"
+configMapGenerator:
+- name: orders-config
+  behavior: merge
+  literals:
+  - ENV=production
